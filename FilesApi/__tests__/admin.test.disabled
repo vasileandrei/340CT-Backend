@@ -1,0 +1,88 @@
+/* eslint-disable no-magic-numbers */
+
+const admin = require('./../modules/admin');
+const user = require('./../modules/users');
+
+const req = {
+  body: {
+    colname: 'testCollection',
+    fileTitle: 'testTitle',
+    size: '5mb',
+    description: 'zipFile',
+  },
+};
+
+
+describe('getAll', () => {
+  test('Succesffuly retrieving all documents from a collection', async (done) => {
+    expect.assertions(3);
+    try {
+      const newTableName = req.body.colname;
+      const url = 'defaultURL';
+      admin.FindAll(newTableName, url, (err, data) => {
+        expect(err).toBeFalsy();
+        expect(data).not.toEqual([]);
+        expect(data).toBeTruthy();
+        done();
+      });
+    } catch (err) {
+      console.log(`err is ${err.message}`);
+    }
+  });
+
+  test('Retrieve an empty object from a wrong collection', async (done) => {
+    expect.assertions(2);
+    try {
+      const newTableName = 'test';
+      const url = 'defaultURL';
+      admin.FindAll(newTableName, url, (err, data) => {
+        expect(err).toBeFalsy();
+        expect(data).toEqual([]);
+        done();
+      });
+    } catch (err) {
+      console.log(`err is ${err.message}`);
+    }
+  });
+});
+
+describe('ForceDelete', () => {
+  beforeEach(() => {
+    const reqBody = {};
+    Object.keys(req.body).forEach((key) => {
+      reqBody[key] = req.body[key];
+    });
+    reqBody.deleted = false; // set deleted flag false for new entries
+    const url = 'defaultURL';
+    user.AddOneToCollection(reqBody, url, () => {});
+  });
+
+  test('Succesffuly deleting a document from a collection', async (done) => {
+    expect.assertions(2);
+    try {
+      const url = 'defaultURL';
+      admin.ForceDelete(req, url, (err, data) => {
+        expect(err).toBeNull();
+        expect(data.result.n).toBeGreaterThan(0);
+        done();
+      });
+    } catch (err) {
+      console.log(`err is ${err.message}`);
+    }
+  });
+
+  test('Failing deleting a non-existing document from a collection', async (done) => {
+    expect.assertions(2);
+    try {
+      req.body.fileTitle = 'inexistent';
+      const url = 'defaultURL';
+      admin.ForceDelete(req, url, (err, data) => {
+        expect(err).toBeNull();
+        expect(data.result.n).toBe(0);
+        done();
+      });
+    } catch (err) {
+      console.log(`err is ${err.message}`);
+    }
+  });
+});

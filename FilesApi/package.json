@@ -1,0 +1,61 @@
+{
+	"name": "FilesApi",
+	"version": "1.0.0",
+	"description": "My API Description",
+	"author": "Andrei Vasile",
+	"main": "app.js",
+	"keywords": [
+		"restify",
+		"template",
+		"boilerplate"
+	],
+	"jest": {
+		"testEnvironment": "node",
+		"verbose": true,
+		"collectCoverage": true,
+		"coverageThreshold": {
+			"global": {
+				"branches": 100,
+				"functions": 100,
+				"lines": 100,
+				"statements": -10
+			}
+		},
+		"testPathIgnorePatterns": [
+			"<rootDir>/node_modules/"
+		]
+	},
+	"scripts": {
+		"start": "node app.js",
+		"precommit": "jest --coverage && echo \"Completed Unt Testing. Commit is ready\"",
+		"test": "node_modules/.bin/mocha"
+	},
+	"devDependencies": {
+		"codecov": "^3.1.0",
+		"eslint": "^5.9.0",
+		"eslint-config-airbnb-base": "^13.1.0",
+		"eslint-plugin-import": "^2.14.0",
+		"mocha": "^5.2.0",
+		"mongomock": "^0.1.2",
+		"nock": "^10.0.2",
+		"pre-commit": "^1.2.2"
+	},
+	"dependencies": {
+		"axios": "^0.18.0",
+		"body-parser": "^1.18.3",
+		"bunyan": "^1.8.12",
+		"chai": "^4.2.0",
+		"chai-http": "^4.2.0",
+		"jest": "^23.6.0",
+		"jsonwebtoken": "^8.3.0",
+		"mongodb": "^3.1.9",
+		"request": "^2.88.0",
+		"restify": "^6.3.4",
+		"restify-express": "^0.2.2",
+		"restify-router": "^0.5.0",
+		"simple-node-logger": "^0.93.40"
+	},
+	"pre-commit": [
+		"precommit"
+	]
+}

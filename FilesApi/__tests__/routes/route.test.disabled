@@ -1,0 +1,54 @@
+/* eslint-disable no-magic-numbers */
+// During the test the env variable is set to test
+process.env.NODE_ENV = 'test';
+
+// Require the dev-dependencies
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
+
+describe('Files Db /api/v1/files/', () => {
+  it('/                 | Get ', (done) => {
+    chai.request('http://localhost:8082')
+      .get('/api/v1/files/')
+      .end((err, res) => {
+        expect(res.status).toBe(200);
+        const resMsg = JSON.parse(res.text);
+        expect(resMsg.message).toEqual('Hello from baseGet, FilesController');
+        done();
+      });
+  });
+
+  it('/createCollection | Post', (done) => {
+    chai.request('http://localhost:8082')
+      .post('/api/v1/files/createCollection')
+      .send({
+        body: {
+          colname: 'chaiTest',
+        },
+      })
+      .end((err, res) => {
+        console.log(res);
+        expect(res.status).toBe(201);
+        const resMsg = JSON.parse(res.text);
+        expect(resMsg.message).toBe('Created a new collection undefined');
+        done();
+      });
+  });
+
+  it('/createCollection | Del ', (done) => {
+    chai.request('http://localhost:8082')
+      .del('/api/v1/files/dropCollection')
+      .send({
+        body: {
+          colname: 'chaiTest',
+        },
+      })
+      .end((err, res) => {
+        expect(res.status).toBe(204);
+        expect(res.text).toBe(''); // 204 No Content
+        done();
+      });
+  });
+});

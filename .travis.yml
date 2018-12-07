@@ -1,0 +1,28 @@
+
+language: node_js
+node_js:
+  - '10'
+
+services: 
+  - docker
+
+before_install:
+  - npm update
+  - npm install -g jest
+  - npm install -g codecov
+  - npm install -g mocha
+  - npm install -g npm-dview
+
+before_script:
+  - chmod +x scripts/coverage.sh
+  - chmod +x scripts/dependencies.sh
+  - chmod +x scripts/deployServer.sh
+  - chmod +x scripts/installDependencies.sh
+  - chmod +x scripts/integration.sh
+  - chmod +x scripts/startTests.sh
+  - chmod +x scripts/unit.sh
+  - docker --version
+  - docker images
+
+script:
+  - make
