@@ -36,7 +36,7 @@
 		"chai": "^4.2.0",
 		"chai-http": "^4.2.0",
 		"cloudinary": "^1.13.2",
-		"codecov": "^3.1.0",
+		"codecov": "^3.7.1",
 		"cors": "^2.8.5",
 		"eslint": "^5.9.0",
 		"eslint-config-airbnb-base": "^13.1.0",
