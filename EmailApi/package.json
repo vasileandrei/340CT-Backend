@@ -51,7 +51,7 @@
 	},
 	"dependencies": {
 		"bunyan": "^1.8.12",
-		"nodemailer": "^4.7.0",
+		"nodemailer": "^6.4.16",
 		"restify": "^6.3.4",
 		"restify-router": "^0.5.0",
 		"simple-node-logger": "^0.93.40"
